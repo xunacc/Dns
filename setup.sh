@@ -66,15 +66,9 @@ cd dnstt-server
 go build
 
 #generate pub key and privkey
-./dnstt-server -gen-key -privkey-file server.key -pubkey-file server.pub
-
-cat <<\EOM > /root/dnstt/dnstt-server/server.key
-e0518afec33e79e1c9fb7f10906a1b2198146947aa1f78861d8c971fde9bde3
-EOM
-
-cat <<\EOM > /root/dnstt/dnstt-server/server.pub
-4a3583ca915e35e9c4f64800624a5e46a1400462b9a1cd11068aedc4c7e4c14b
-EOM
+./dnstt-server -gen-key
+privkey e0518afec33e79e1c9fb7f10906a1b2198146947aa1f78861d8c971fde9bde3
+pubkey  4a3583ca915e35e9c4f64800624a5e46a1400462b9a1cd11068aedc4c7e4c14b
 
 #generate service file for dnstt
    echo "
@@ -85,7 +79,7 @@ EOM
    [Service]
    Type=simple
    WorkingDirectory=/root/dnstt/dnstt-server
-   ExecStart=/root/dnstt/dnstt-server/dnstt-server -udp :53 -privkey-file server.key $nameserver 127.0.0.1:22
+   ExecStart=/root/dnstt/dnstt-server/dnstt-server -udp :53 -privkey-file e0518afec33e79e1c9fb7f10906a1b2198146947aa1f78861d8c971fde9bde3 $nameserver 127.0.0.1:22
    Restart=always
 
    [Install]
